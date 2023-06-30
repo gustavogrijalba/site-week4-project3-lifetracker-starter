@@ -1,16 +1,13 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import Hero from '../Hero/Hero'
+import "./Home.css"
 
 const Home = () => {
   return (
-    <div>
-        <Link to = "/auth/login">
-            <button>Login</button>
-        </Link>
-
-        <Link to = "/auth/register">
-            <button>Register</button>
-        </Link>
+    <div className = 'homepage'>
+        <Hero/>
+        
     </div>
   )
 }

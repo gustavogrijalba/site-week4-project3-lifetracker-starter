@@ -4,6 +4,7 @@ import {BrowserRouter, Routes , Route, Link} from "react-router-dom"
 import Register from "../Register/Register"
 import Login from "../Login/Login"
 import Home from "../Home/Home"
+import Navbar from "../Navbar/Navbar"
 
 function App() {
 
@@ -57,9 +58,15 @@ function App() {
     }
   }
 
+  //handler for logout
+  const handleLogOut = () => {
+    setIsLoggedIn(false)
+  }
+
   return (
-    <div>
+    <div className="App">
       <BrowserRouter>
+      <Navbar isLoggedIn = {isLoggedIn} handleLogout={handleLogOut}/>
       <Routes>
         <Route path = "/" element = {<Home/>}/>
         <Route path = "/auth/register" element = {<Register handleRegistration = {handleRegistration}/>}/>

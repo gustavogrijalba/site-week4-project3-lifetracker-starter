@@ -4,3 +4,12 @@
   width: 100%;
   gap: 20px;
 }
+
+.homepage {
+  max-width: 1200px;
+  align-items: center;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+}
