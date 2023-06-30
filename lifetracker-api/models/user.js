@@ -1,53 +1,43 @@
 const {BadRequestError, UnauthorizedError} = require("../utils/errors")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const { BCRYPT_SALT_FACTOR } = require("../config")
+const db = require("../db")
+
 class User {
     //function that will take in credentials and verify if a user can log in
     static async login(credentials) {
         //the required inputs to login a user
-        const { email, password } = credentials
         const requiredFields = ["email", "password"]
 
+        //check if everything is there 
+        requiredFields.forEach(field => {
+            if (!credentials.hasOwnProperty(field)) {
+                throw new BadRequestError(`Missing ${field} in request body`)
+            }
+        })
+
         //check if the email entered by the user exists in the DB.
-        const getUserQuery = `
-        SELECT * FROM users
-        WHERE email = $1
-        `
+        const user = await User.fetchUserByEmail(credentials.email)
 
-        //execute the query
-        const result = await pool.query(getUserQuery, [email])
+        //check if user exists
 
-        //store the user data returned from the query
-        const user = result.rows[0];
-         if (!user) {
-            return res.status(404).json({ message: "User not found!" });
+        if (user) {
+            const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+            if (isPasswordValid) {
+                return user
+            }
         }
-
-        //check if inputted password is what is in the db
-
-        const isPasswordValid = await bcrypt.compare(password, user.password)
-
         //send error message if password isn't valid 
-
-        if (!isPasswordValid) {
             throw new UnauthorizedError("Invalid password")
-        }
 
         //generate jwtoken if passwords match 
-        const token = jwt.sign({ userId: user.id }, "secret-key-unique", {
-            expiresIn: "1h",
-          })
+        // const token = jwt.sign({ userId: user.id }, "secret-key-unique", {
+        //     expiresIn: "1h",
+        //   })
 
-          res.status(200).json({
-            message: "Login Successful",
-            token: token,
-            user: {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-            },
-          })
     }
+
     //function that will take in required fields of our register form as 
     //credientials and register the user based on conditions
     static async register(credentials) {
@@ -66,8 +56,7 @@ class User {
         const lowercasedEmail = credentials.email.toLowerCase()
 
         //hash our password using bcrypt and salt
-        const saltRounds = 10
-        const salt = await bcrypt.genSalt(saltRounds)
+        const salt = await bcrypt.genSalt(BCRYPT_SALT_FACTOR)
 
         const hashedPassword = await bcrypt.hash(credentials.password, salt)
 
@@ -79,16 +68,17 @@ class User {
         `;
 
         //assigning values to $1, $2...
-        const values = [credentials.email, credentials.username, hashedPassword, credentials.first_name, credentials.last_name]
+        const values = [lowercasedEmail, credentials.username, hashedPassword, credentials.first_name, credentials.last_name]
 
         //get the actual result from the query 
-        const result = await pool.query(createUserQuery, values)
+        const result = await db.query(createUserQuery, values)
 
-        //if all this works and no error - Status code 201 - successful entry
-        res.status(201).json({
-            message: "User registered successfully",
-            user: result.rows[0],
-      })
+        //get the user from the query
+
+        const user = result.rows[0]
+
+        return user
+        
     }
 
     //fetch an existing user based on an email

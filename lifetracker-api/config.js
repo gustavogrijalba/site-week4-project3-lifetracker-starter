@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt')
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001
 
+
+const BCRYPT_SALT_FACTOR = 13;
+
 function getDatabaseUri () {
     const dbUser = process.env.DATABASE_USER || "postgres"
     const dbPass = process.env.DATABASE_PASS ? encodeURI(process.env.DATABASE_PASS) : "postgres"
@@ -21,5 +24,6 @@ console.log("----")
 
 module.exports = {
     PORT,
+    BCRYPT_SALT_FACTOR,
     getDatabaseUri
 }
