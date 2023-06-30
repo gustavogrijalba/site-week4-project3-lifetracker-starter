@@ -4,7 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 
 //declare the PORT
-const PORT = 3000
+const PORT = 3001
 
 //import routes
 const authRoutes = require("./routes/authRoutes")
