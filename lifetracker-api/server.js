@@ -3,6 +3,9 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 
+//importing the config 
+const config = require("./config")
+
 //declare the PORT
 const PORT = 3001
 

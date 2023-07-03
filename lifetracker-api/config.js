@@ -7,6 +7,8 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 3001
 
 const BCRYPT_SALT_FACTOR = 13;
 
+const SECRET_KEY = process.env.SECRET_KEY || 'PLACEHOLDER'
+
 function getDatabaseUri () {
     const dbUser = process.env.DATABASE_USER || "postgres"
     const dbPass = process.env.DATABASE_PASS ? encodeURI(process.env.DATABASE_PASS) : "postgres"
@@ -25,5 +27,6 @@ console.log("----")
 module.exports = {
     PORT,
     BCRYPT_SALT_FACTOR,
-    getDatabaseUri
+    getDatabaseUri,
+    SECRET_KEY
 }

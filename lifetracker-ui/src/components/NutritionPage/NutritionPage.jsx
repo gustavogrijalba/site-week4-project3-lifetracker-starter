@@ -1,10 +1,10 @@
 import React from 'react'
-import './Nutrition.css'
+import './NutritionPage.css'
 
-const NutritionPage = () => {
+const NutritionPage = ({isLoggedIn}) => {
   return (
     <div>
-
+        {isLoggedIn ? <p>You're Logged In</p>: <p>Login to see nutrition data</p> }
     </div>
   )
 }

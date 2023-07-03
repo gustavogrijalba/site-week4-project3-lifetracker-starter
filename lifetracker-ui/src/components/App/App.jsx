@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './App.css'
 import {BrowserRouter, Routes , Route, Link} from "react-router-dom"
 import Register from "../Register/Register"
 import Login from "../Login/Login"
 import Home from "../Home/Home"
 import Navbar from "../Navbar/Navbar"
+import NutritionPage from "../NutritionPage/NutritionPage";
+import jwtDecode from "jwt-decode";
 
 function App() {
+
+//checking for login 
+
+  useEffect(() => {
+    const checkLoggedIn = () => {
+      //check if the user is logged in when the user first accesses the webapp
+      const token = localStorage.getItem("token");
+      if (token) {
+        //decode the stored token
+        const decodedToken = jwtDecode(token);
+
+        if (decodedToken.exp * 1000 > Date.now()) {
+          setIsLoggedIn(true);
+        } else {
+          //Token has expired, log out the user
+          handleLogout();
+        }
+      }
+    };
+
+    checkLoggedIn();
+  }, []);
 
   //useState for loggedin status
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -26,7 +50,12 @@ function App() {
       //wait for the response
       const data = await response.json()
 
-      if (response.ok) {
+      if (response.status === 201) {
+        //get the token 
+
+        const { token } = data 
+        localStorage.setItem('token', token)
+
         //Registration successful
         setIsLoggedIn(true);
 
@@ -49,7 +78,13 @@ function App() {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.status === 200 ) {
+
+        //get the token 
+
+        const {token} = data 
+        localStorage.setItem('token', token)
+
         //Successful Login
         setIsLoggedIn(true)
       }
@@ -60,6 +95,7 @@ function App() {
 
   //handler for logout
   const handleLogOut = () => {
+    localStorage.removeItem('token')
     setIsLoggedIn(false)
   }
 
@@ -71,6 +107,7 @@ function App() {
         <Route path = "/" element = {<Home/>}/>
         <Route path = "/auth/register" element = {<Register handleRegistration = {handleRegistration}/>}/>
         <Route path = "/auth/login" element = {<Login handleLogin = {handleLogin} isLoggedIn = {isLoggedIn}/>}/>
+        <Route path = "/nutrition" element = {<NutritionPage isLoggedIn = {isLoggedIn}/>} />
       </Routes>
       </BrowserRouter>
     </div>
