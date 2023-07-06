@@ -7,6 +7,7 @@ import Home from "../Home/Home"
 import Navbar from "../Navbar/Navbar"
 import NutritionPage from "../NutritionPage/NutritionPage";
 import jwtDecode from "jwt-decode";
+import ActivityPage from "../ActivityPage/ActivityPage";
 
 
 function App() {
@@ -131,6 +132,7 @@ function App() {
         <Route path = "/auth/register" element = {<Register handleRegistration = {handleRegistration}/>}/>
         <Route path = "/auth/login" element = {<Login handleLogin = {handleLogin} isLoggedIn = {isLoggedIn} LoginError = {LoginError}/>}/>
         <Route path = "/nutrition" element = {<NutritionPage isLoggedIn = {isLoggedIn} userID={userID}/>} />
+        <Route path = "/activity" element = {<ActivityPage></ActivityPage>}/>
       </Routes>
       </BrowserRouter>
     </div>

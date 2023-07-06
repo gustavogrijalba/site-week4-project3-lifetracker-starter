@@ -1,8 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ActivityPage = () => {
   return (
-    <div>ActivityPage</div>
+    <div>
+        <Link to = "/nutrition">
+        <button>Add Nutrition Data</button>
+        </Link>
+    </div>
   )
 }
 
