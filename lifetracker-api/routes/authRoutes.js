@@ -16,13 +16,15 @@ router.post("/register", async (req, res, next) => {
     try {
     const user = await User.register(req.body)
     // const token = jwt.sign(
-    //     { userId: user.id, userName: user.name },
+    //     { userID: user.id, userName: user.username },
     //     SECRET_KEY,
     //     {
     //       expiresIn: "1h",
     //     } 
     // )
+    
     const token = createToken(user)
+    
     return res.status(201).json({user: user, token: token})
     } catch(err) {
         next(err)
@@ -35,13 +37,15 @@ router.post("/login", async (req, res,next) => {
     try {
         const user = await User.login(req.body)
         // const token = jwt.sign(
-        //     { userId: user.id, userName: user.name },
+        //     { userID: user.id, userName: user.username },
         //     SECRET_KEY,
         //     {
         //       expiresIn: "1h",
         //     } 
         // )
+        
         const token = createToken(user)
+        
         return res.status(200).json({user: user, token: token})
         } catch(err) {
             next(err)

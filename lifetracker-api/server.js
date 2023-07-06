@@ -11,6 +11,7 @@ const PORT = 3001
 
 //import routes
 const authRoutes = require("./routes/authRoutes")
+const nutritionRoutes = require("./routes/nutritionRoutes")
 
 //setup the server using the dependencies
 const app = express()
@@ -18,10 +19,11 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan("tiny"))
 
-//use authroutes 
-
+//use routes 
 app.use("/auth", authRoutes)
+app.use("/nutrition", nutritionRoutes)
 
+//setup the server
 app.listen(PORT, () => {
     console.log(`🚀 Server listening on port ` + PORT)
 })

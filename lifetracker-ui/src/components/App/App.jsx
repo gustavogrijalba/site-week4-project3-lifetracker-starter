@@ -18,19 +18,22 @@ function App() {
       const token = localStorage.getItem("token");
       if (token) {
         //decode the stored token
-        const decodedToken = jwtDecode(token);
+        const decodedToken = jwtDecode(token)
 
         if (decodedToken.exp * 1000 > Date.now()) {
-          setIsLoggedIn(true);
+          setIsLoggedIn(true)
         } else {
           //Token has expired, log out the user
-          handleLogout();
+          handleLogOut()
         }
       }
     };
 
     checkLoggedIn();
   }, []);
+
+  //keeping track of the userID user token
+  const [userID, setUserID] = useState("")
 
   //useState for loggedin status
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -55,9 +58,11 @@ function App() {
 
         const { token } = data 
         localStorage.setItem('token', token)
+        const decodedToken = jwtDecode(token)
 
         //Registration successful
-        setIsLoggedIn(true);
+        setIsLoggedIn(true)
+        setUserID(decodedToken.id)
 
       } 
     } catch (error) {
@@ -84,9 +89,11 @@ function App() {
 
         const {token} = data 
         localStorage.setItem('token', token)
+        const decodedToken = jwtDecode(token)
 
-        //Successful Login
+        //Successful Login, setting accordingly
         setIsLoggedIn(true)
+        setUserID(decodedToken.id)
       }
     } catch (error) {
       console.error("Error:", error);
@@ -98,6 +105,8 @@ function App() {
     localStorage.removeItem('token')
     setIsLoggedIn(false)
   }
+
+  
 
   return (
     <div className="App">

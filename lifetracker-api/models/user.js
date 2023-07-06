@@ -31,10 +31,6 @@ class User {
         //send error message if password isn't valid 
             throw new UnauthorizedError("Invalid password")
 
-        //generate jwtoken if passwords match 
-        // const token = jwt.sign({ userId: user.id }, "secret-key-unique", {
-        //     expiresIn: "1h",
-        //   })
 
     }
 
