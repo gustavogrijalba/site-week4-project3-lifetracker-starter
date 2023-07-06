@@ -10,7 +10,7 @@ router.post("/add", async (req, res, next) => {
     try {
         //get the data and the userID from the body of the req
         const nutritionData = req.body
-        const userID = req.body.userID
+        const userID = req.body.user_id
 
         //use the function from the model to create a new nutritional data 
         const addedNutritionalData = await Nutrition.createNutritionData(nutritionData, userID)

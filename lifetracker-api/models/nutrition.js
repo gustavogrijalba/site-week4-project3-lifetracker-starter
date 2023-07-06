@@ -52,7 +52,7 @@ class Nutrition {
         //selecting all the data in the db that matches with the user's id
         const createUserQuery = `SELECT * FROM nutrition WHERE user_id = $1`
 
-        const value = userID
+        const value = [userID]
 
         const result = await db.query(createUserQuery, value)
 
