@@ -8,20 +8,25 @@ import Navbar from "../Navbar/Navbar"
 import NutritionPage from "../NutritionPage/NutritionPage";
 import jwtDecode from "jwt-decode";
 
+
 function App() {
+
+  //keeping track of the userID user token
+  const [userID, setUserID] = useState("")
 
 //checking for login 
 
   useEffect(() => {
-    const checkLoggedIn = () => {
+    const checkLoggedIn = async () => {
       //check if the user is logged in when the user first accesses the webapp
       const token = localStorage.getItem("token");
       if (token) {
         //decode the stored token
-        const decodedToken = jwtDecode(token)
+        const  decodedToken = await jwtDecode(token)
 
         if (decodedToken.exp * 1000 > Date.now()) {
           setIsLoggedIn(true)
+          setUserID(decodedToken.userID)
         } else {
           //Token has expired, log out the user
           handleLogOut()
@@ -32,11 +37,10 @@ function App() {
     checkLoggedIn();
   }, []);
 
-  //keeping track of the userID user token
-  const [userID, setUserID] = useState("")
 
   //useState for loggedin status
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [LoginError, setLoginError] = useState(false)
 
   //registration handler
   const handleRegistration = async ( email, username, first_name, last_name, password) => {
@@ -62,11 +66,13 @@ function App() {
 
         //Registration successful
         setIsLoggedIn(true)
-        setUserID(decodedToken.id)
-
+        setUserID(decodedToken.userID)
+        return true
       } 
     } catch (error) {
       console.error("Error: ", error)
+      setLoginError(true)
+      return false 
     }
   }
 
@@ -93,10 +99,17 @@ function App() {
 
         //Successful Login, setting accordingly
         setIsLoggedIn(true)
-        setUserID(decodedToken.id)
+        setUserID(decodedToken.userID)
+        console.log(userID)
+
+        return true
       }
+
+
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error)
+      setLoginError(true)
+      return false
     }
   }
 
@@ -104,6 +117,7 @@ function App() {
   const handleLogOut = () => {
     localStorage.removeItem('token')
     setIsLoggedIn(false)
+    setLoginError(false)
   }
 
   
@@ -115,8 +129,8 @@ function App() {
       <Routes>
         <Route path = "/" element = {<Home/>}/>
         <Route path = "/auth/register" element = {<Register handleRegistration = {handleRegistration}/>}/>
-        <Route path = "/auth/login" element = {<Login handleLogin = {handleLogin} isLoggedIn = {isLoggedIn}/>}/>
-        <Route path = "/nutrition" element = {<NutritionPage isLoggedIn = {isLoggedIn}/>} />
+        <Route path = "/auth/login" element = {<Login handleLogin = {handleLogin} isLoggedIn = {isLoggedIn} LoginError = {LoginError}/>}/>
+        <Route path = "/nutrition" element = {<NutritionPage isLoggedIn = {isLoggedIn} userID={userID}/>} />
       </Routes>
       </BrowserRouter>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Register = ({handleRegistration}) => {
 
@@ -9,10 +10,16 @@ const Register = ({handleRegistration}) => {
     const [first_name, setFirstName] = useState("")
     const [last_name, setLastName] = useState("")
 
+    //using this for redirect on register
+    let navigate = useNavigate()
+
     //submit event handler 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        handleRegistration(email, username, first_name, last_name, password)
+        const status = await handleRegistration(email, username, first_name, last_name, password)
+        if (status) {
+          navigate('/')
+        }
     }
 
   return (

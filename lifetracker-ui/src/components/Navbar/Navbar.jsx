@@ -1,10 +1,15 @@
 import React from 'react'
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import "./Navbar.css"
 
 const Navbar = ({isLoggedIn, handleLogout}) => {
 
-    console.log(isLoggedIn)
+    const navigate = useNavigate()
+
+    const handleHandleLogout = () => {
+        handleLogout()
+        navigate('/auth/login')
+    }
 
   return (
     
@@ -31,7 +36,7 @@ const Navbar = ({isLoggedIn, handleLogout}) => {
         </Link>
 
         {isLoggedIn ? 
-        <button onClick = {handleLogout}>Logout</button>: 
+        <button onClick = {handleHandleLogout}>Logout</button>: 
         
         <div>
         <Link className = "navbar-link" to = "/auth/login">

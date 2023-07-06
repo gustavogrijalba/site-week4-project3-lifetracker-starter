@@ -18,15 +18,17 @@ class Nutrition {
         return user 
     }
 
-    static async createNutritionData(data, userID) {
+    static async createNutritionData(data) {
         const requiredFields = ["name", "category", "calories", "image_url"]
         //check if each field is filled out
+
+        console.log("data", data); 
+
         requiredFields.forEach(field => {
             if (!data.hasOwnProperty(field)) {
                 throw new BadRequestError(`Missing ${field} in request body`)
             }
         })
-
         //create our query 
         const createUserQuery = `
             INSERT INTO nutrition (name, category, calories, image_url, user_id)
@@ -34,7 +36,7 @@ class Nutrition {
             RETURNING *
         `
 
-        const values = [data.name, data.category, data.calories,data.image_url, userID]
+        const values = [data.name, data.category, data.calories,data.image_url, data.user_id]
 
         const result = await db.query(createUserQuery, values)
 

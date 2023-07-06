@@ -1,25 +1,32 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Home from '../Home/Home'
+import { useNavigate, Navigate } from "react-router-dom";
 
 
-const Login = ({handleLogin, isLoggedIn}) => {
+const Login = ({handleLogin, isLoggedIn, LoginError}) => {
   //needed useStates for email and password
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  //using this for redirect
+  let navigate = useNavigate()
+
   //submission handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    handleLogin(email, password)
+    const status = await handleLogin(email, password)
+
+    if (status) {
+      navigate("/")
+    }
+
   }
 
 
   return (
     <div>
-      {isLoggedIn ? 
-      <Home></Home> : 
       <div>
     <h2>Login</h2>
     <form onSubmit = {handleSubmit}>
@@ -39,9 +46,11 @@ const Login = ({handleLogin, isLoggedIn}) => {
       />
       <button type="submit">Login</button>
 
+      {LoginError ? 
+      <p>Error with login</p>: null}
+
     </form>
   </div> 
-      }
     </div>
 
   )
