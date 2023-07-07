@@ -61,7 +61,8 @@ const handleInputChange = (e) => {
     <div>
         {isLoggedIn ? 
         <div>
-          <form onSubmit={addNutritionData}>
+          <h1 className = 'center'>Consume the WIRED</h1>
+          <form onSubmit={addNutritionData} className = 'login-form'>
           <label className="label">Name:</label>
           <input
             type="text"

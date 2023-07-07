@@ -7,8 +7,61 @@
   background: #f7fafc;
   margin: 0;
   margin-left: auto;
+  background-color: black;
+  background-image: url("https://i.pinimg.com/originals/4b/5d/a6/4b5da63844b3760bb5dcc9ef2e6fa402.gif");
+  color: white;
+  font-family: "Love Letter";
+  cursor: url("https://systemspace.dimden.dev/res/img/ui/cursor.png"), default;
 }
 
 body {
   margin: 0; 
+  background-color: black;
+}
+
+@font-face {
+  font-family: 'Love Letter';
+  src: url("../../assets/font/Lovelt__.ttf") format('truetype');
+}
+
+body:before {
+	content: "";
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1000;
+	background-image: url(https://systemspace.dimden.dev/res/img/ui/static/overlay.png);
+	background-repeat: all;
+	background-position: 0px 0px;
+	animation-name: Static;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: steps(4);
+	box-shadow: inset 0px 0px 10em rgba(0,0,0,0.4);
+}
+
+body:after {
+	content: "";
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1000;
+	background-image: url(https://systemspace.dimden.dev/res/img/ui/static/overlay2.png);
+	background-repeat: all;
+	background-position: 0px 0px;
+	animation-name: Static;
+	animation-duration: 0.8s;
+	animation-iteration-count: infinite;
+	animation-timing-function: steps(4);
+}
+
+@keyframes Static {
+	0% { background-position: 0px 0px; }
+	100% { background-position: 0px 4px; }
 }

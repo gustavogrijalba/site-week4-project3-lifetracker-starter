@@ -16,35 +16,27 @@ const Navbar = ({isLoggedIn, handleLogout}) => {
     <div className = 'Navbar'>
 
         <Link to = "/">
-            <img className = "messi" src = "https://i.pinimg.com/originals/c7/cb/99/c7cb995fd8765992c95aaac931a040d6.png"/>
-        </Link>
+            <img className = "messi" src = "https://steamuserimages-a.akamaihd.net/ugc/811055404668406828/C20377A85AC435CB00B000AFAD88A7B0C7D85A87/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"/>
+            </Link>
 
         <Link className='navbar-link' to = "/activity">
             <p>Activity</p>
-        </Link>
-
-        <Link className = "navbar-link" to = "/exercise">
-            <p>Exercise</p>
         </Link>
 
         <Link className = "navbar-link" to = "/nutrition">
             <p>Nutrition</p>
         </Link>
 
-        <Link className = "navbar-link" to = "/sleep">
-            <p>Sleep</p>
-        </Link>
-
         {isLoggedIn ? 
-        <button onClick = {handleHandleLogout}>Logout</button>: 
+        <button onClick = {handleHandleLogout} className = 'navBarbtn'>Logout</button>: 
         
         <div>
         <Link className = "navbar-link" to = "/auth/login">
-        <button>Login</button>
+        <button className='navBarbtn'>Login</button>
          </Link>
 
     <Link className = "navbar-link" to = "/auth/register">
-        <button >Register</button>
+        <button className='navBarbtn'>Register</button>
     </Link> 
     </div> }
 

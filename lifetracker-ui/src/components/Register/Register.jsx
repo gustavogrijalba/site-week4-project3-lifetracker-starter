@@ -23,10 +23,10 @@ const Register = ({handleRegistration}) => {
     }
 
   return (
-    <div>
-        <h2>Create an Account </h2>
+    <div className = 'center'>
+        <h2>Unlock the GATE, unlock the FUTURE </h2>
 
-        <form onSubmit = {handleSubmit}>
+        <form onSubmit = {handleSubmit} className = 'login-form'>
             <label>Email: </label>
             <input type = "email" 
             value = {email} 

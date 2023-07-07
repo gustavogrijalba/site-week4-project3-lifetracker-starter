@@ -1,0 +1,20 @@
+
+.Nutritioncontainer {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.Nutritioncontainer img {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.Nutritioncontainer p {
+    margin-bottom: 5px;
+}

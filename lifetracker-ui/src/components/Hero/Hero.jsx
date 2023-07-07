@@ -5,14 +5,14 @@ import HeroImage from "../../../src/assets/tracker.jpg"
 
 const Hero = () => {
   return (
-    <div class="container">
-        <div class="content">
-            <div class="text">
-                <h1>LifeTracker</h1>
-            <h2>Helping you take back control of your world.</h2>
+    <div class="Herocontainer">
+        <div class= "content">
+            <div class= "text">
+                <h1>lainTracker</h1>
+            <h2>Helping you take escape from the WIRED.</h2>
             </div>
-            <div class="image">
-            <img src ={HeroImage} /> 
+            <div class = "image">
+            <img src = "https://systemspace.dimden.dev/res/img/others/lain.png"/> 
             </div>
         </div>
     </div>

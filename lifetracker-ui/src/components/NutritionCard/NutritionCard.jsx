@@ -1,4 +1,6 @@
 import React from 'react'
+import "./NutritionCard.css"
+
 
 const NutritionCard = ({data}) => {
 
@@ -6,13 +8,13 @@ const NutritionCard = ({data}) => {
 
 
   return (
-    <div>
-        <p>{data.name}</p>
-        <p>{data.category}</p>
-        <p>{data.calories}</p>
+        <div className = 'Nutritioncontainer'>
         <img src = {image}/>
-        <p>{data.created_at}</p>
-    </div>
+        <p>Name: {data.name}</p>
+        <p>Category: {data.category}</p>
+        <p>Calories: {data.calories}</p>
+        <p>Time added: {data.created_at}</p>
+        </div>
   )
 }
 

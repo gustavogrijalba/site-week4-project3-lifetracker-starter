@@ -20,10 +20,8 @@ class Nutrition {
 
     static async createNutritionData(data) {
         const requiredFields = ["name", "category", "calories", "image_url"]
+        
         //check if each field is filled out
-
-        console.log("data", data); 
-
         requiredFields.forEach(field => {
             if (!data.hasOwnProperty(field)) {
                 throw new BadRequestError(`Missing ${field} in request body`)
