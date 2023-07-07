@@ -1,5 +1,9 @@
 # Project #3: LifeTracker Application
 
+## VIDEO 
+
+{https://www.loom.com/share/a18b454110f54ec8a52aea85a649e74a?sid=80789470-fb95-4222-a4d3-4c889b249047}
+
 ## Overview
 
 > Data is the new oil - Clive Humbly
