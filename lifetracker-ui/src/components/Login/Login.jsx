@@ -20,7 +20,7 @@ const Login = ({handleLogin, isLoggedIn, LoginError}) => {
     const status = await handleLogin(email, password)
 
     if (status) {
-      navigate("/")
+      navigate("/activity")
     }
 
   }

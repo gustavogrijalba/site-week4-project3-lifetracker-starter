@@ -1,5 +1,7 @@
 import React from 'react'
 import "./NutritionCard.css"
+import { Link, Route, Routes } from 'react-router-dom'
+import IndvCard from '../IndvCard/IndvCard'
 
 
 const NutritionCard = ({data}) => {
@@ -9,7 +11,9 @@ const NutritionCard = ({data}) => {
 
   return (
         <div className = 'Nutritioncontainer'>
-        <img src = {image}/>
+          <Link to = {`/nutrition/detail/${data.id}`}>
+          <img src = {image}/>
+          </Link>
         <p>Name: {data.name}</p>
         <p>Category: {data.category}</p>
         <p>Calories: {data.calories}</p>

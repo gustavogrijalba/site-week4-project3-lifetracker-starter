@@ -59,6 +59,37 @@ class Nutrition {
         return result.rows
 
     }
+
+    static async getAVGUserCal(userID) {
+        if (!userID) {
+            throw new BadRequestError("No id provided")
+        }
+
+        const createUserQuery = `SELECT AVG(calories) FROM nutrition WHERE user_id = $1`
+
+        const value = [userID]
+
+        const result = await db.query(createUserQuery, value)
+
+        return result.rows[0]
+
+    }
+
+    static async getDataByID(id) {
+        
+        if (!id) {
+            throw new BadRequestError("No id provided")
+        }
+
+        const createUserQuery = `SELECT * FROM nutrition WHERE id = $1`
+
+        const value = [id]
+
+        const result = await db.query(createUserQuery, value)
+        
+        return result.rows[0]
+        
+    }
 }
 
 module.exports = Nutrition

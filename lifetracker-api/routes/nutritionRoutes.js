@@ -41,5 +41,22 @@ router.get("/:userID", async (req, res, next) => {
     }
 })
 
+router.get("/detail/:id", async (req, res, next) => {
+
+    try {
+    //get the user's id from the params of the url 
+    const id = req.params.id
+
+    //get all the data the user entered 
+    const indvData = await Nutrition.getDataByID(id)
+
+    //send an 200 message if successful, if not go to the next err
+    return res.status(200).json({indvData})
+
+    } catch(err) {
+        next(err)
+    }
+})
+
 module.exports = router
 

@@ -8,12 +8,15 @@ import Navbar from "../Navbar/Navbar"
 import NutritionPage from "../NutritionPage/NutritionPage";
 import jwtDecode from "jwt-decode";
 import ActivityPage from "../ActivityPage/ActivityPage";
-
+import NutritionCard from "../NutritionCard/NutritionCard";
+import IndvCard from "../IndvCard/IndvCard";
+import { useParams } from "react-router-dom";
 
 function App() {
 
-  //keeping track of the userID user token
+  //keeping track of the userID and name user token
   const [userID, setUserID] = useState("")
+  const [userName, setUserName] = useState("")
 
 //checking for login 
 
@@ -28,6 +31,7 @@ function App() {
         if (decodedToken.exp * 1000 > Date.now()) {
           setIsLoggedIn(true)
           setUserID(decodedToken.userID)
+          setUserName(decodedToken.userName)
         } else {
           //Token has expired, log out the user
           handleLogOut()
@@ -68,6 +72,7 @@ function App() {
         //Registration successful
         setIsLoggedIn(true)
         setUserID(decodedToken.userID)
+        setUserName(decodedToken.userName)
         return true
       } 
     } catch (error) {
@@ -101,6 +106,7 @@ function App() {
         //Successful Login, setting accordingly
         setIsLoggedIn(true)
         setUserID(decodedToken.userID)
+        setUserName(decodedToken.userName)
         console.log(userID)
 
         return true
@@ -132,7 +138,8 @@ function App() {
         <Route path = "/auth/register" element = {<Register handleRegistration = {handleRegistration}/>}/>
         <Route path = "/auth/login" element = {<Login handleLogin = {handleLogin} isLoggedIn = {isLoggedIn} LoginError = {LoginError}/>}/>
         <Route path = "/nutrition" element = {<NutritionPage isLoggedIn = {isLoggedIn} userID={userID}/>} />
-        <Route path = "/activity" element = {<ActivityPage></ActivityPage>}/>
+        <Route path = "/activity" element = {<ActivityPage isLoggedIn={isLoggedIn} userName={userName} userID={userID}></ActivityPage>}/>
+        <Route path = "/nutrition/detail/:id" element = {<IndvCard userID={userID}/>}/>
       </Routes>
       </BrowserRouter>
     </div>

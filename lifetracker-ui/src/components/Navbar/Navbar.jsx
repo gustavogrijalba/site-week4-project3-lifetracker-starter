@@ -15,10 +15,12 @@ const Navbar = ({isLoggedIn, handleLogout}) => {
     
     <div className = 'Navbar'>
 
+        <div className='navbar-image'>
         <Link to = "/">
             <img className = "messi" src = "https://steamuserimages-a.akamaihd.net/ugc/811055404668406828/C20377A85AC435CB00B000AFAD88A7B0C7D85A87/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"/>
             </Link>
-
+            </div>
+            
         <Link className='navbar-link' to = "/activity">
             <p>Activity</p>
         </Link>
@@ -28,15 +30,15 @@ const Navbar = ({isLoggedIn, handleLogout}) => {
         </Link>
 
         {isLoggedIn ? 
-        <button onClick = {handleHandleLogout} className = 'navBarbtn'>Logout</button>: 
+        <button onClick = {handleHandleLogout} className = 'coolbttn'>Logout</button>: 
         
         <div>
         <Link className = "navbar-link" to = "/auth/login">
-        <button className='navBarbtn'>Login</button>
+        <button className='coolbttn'>Login</button>
          </Link>
 
     <Link className = "navbar-link" to = "/auth/register">
-        <button className='navBarbtn'>Register</button>
+        <button className='coolbttn'>Register</button>
     </Link> 
     </div> }
 
